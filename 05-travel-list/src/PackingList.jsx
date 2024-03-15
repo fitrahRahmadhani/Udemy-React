@@ -1,11 +1,11 @@
 import Item from "./Item";
 import PropTypes from "prop-types";
 
-function PackingList({ data }) {
+function PackingList({ items }) {
   return (
     <div className="list">
       <ul>
-        {data.map((item) => (
+        {items.map((item) => (
           <Item item={item} key={item.id} />
         ))}
       </ul>
@@ -15,5 +15,5 @@ function PackingList({ data }) {
 export default PackingList;
 
 PackingList.propTypes = {
-  data: PropTypes.object.isRequired,
+  items: PropTypes.object.isRequired,
 };

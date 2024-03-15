@@ -1,6 +1,7 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
-function Form() {
+function Form({ onAddItem }) {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
 
@@ -8,6 +9,9 @@ function Form() {
     event.preventDefault();
     if (!description) return;
     const newItem = { description, quantity, package: false, id: Date.now() };
+    onAddItem(newItem);
+    setDescription("");
+    setQuantity(1);
   }
 
   return (
@@ -33,4 +37,7 @@ function Form() {
     </form>
   );
 }
+Form.propTypes = {
+  onAddItem: PropTypes.func.isRequired,
+};
 export default Form;
