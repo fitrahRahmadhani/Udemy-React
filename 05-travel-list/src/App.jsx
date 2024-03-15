@@ -11,12 +11,36 @@ function App() {
     setItems((items) => [...items, item]);
   }
 
+  function handleDelete(id) {
+    setItems((items) => items.filter((item) => item.id !== id));
+  }
+
+  function handleToggleItem(id) {
+    setItems((items) =>
+      items.map((item) =>
+        item.id === id ? { ...item, packed: !item.packed } : item
+      )
+    );
+  }
+
+  function handlelClearList() {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete all items?"
+    );
+    confirmed && setItems([]);
+  }
+
   return (
     <div className="app">
       <Logo />
       <Form onAddItem={handleAddItem} />
-      <PackingList items={items} />
-      <Stats />
+      <PackingList
+        items={items}
+        onDeleteItem={handleDelete}
+        onToggleItem={handleToggleItem}
+        onClearList={handlelClearList}
+      />
+      <Stats items={items} />
     </div>
   );
 }
