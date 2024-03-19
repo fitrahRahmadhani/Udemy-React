@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import "./index.css";
 
 const messages = [
@@ -40,22 +41,33 @@ function Steps() {
             <div className={step >= 3 ? "active" : ""}>3</div>
           </div>
 
-          <p className="message">
-            Step {step}: {messages[step - 1]}
-          </p>
+          <StepMessage step={step}>
+            <span>{messages[step - 1]}</span>
+            <div className="buttons">
+              <Button
+                backgroundColor="#e7e7e7"
+                color="#333333"
+                onClick={() => alert(`Learn how to ${messages[step - 1]}`)}
+              >
+                Learn How
+              </Button>
+            </div>
+          </StepMessage>
           <div className="buttons">
-            <button
-              style={{ backgroundColor: "#7950f2", color: "#fff" }}
+            <Button
+              backgroundColor={"#7950f2"}
+              color={"#fff"}
               onClick={handlePrevious}
             >
-              Previous
-            </button>
-            <button
-              style={{ backgroundColor: "#7950f2", color: "#fff" }}
+              <span>👈 Previous</span>
+            </Button>
+            <Button
+              backgroundColor={"#7950f2"}
+              color={"#fff"}
               onClick={handleNext}
             >
-              Next
-            </button>
+              <span>Next 👉</span>
+            </Button>
           </div>
         </div>
       )}
@@ -63,4 +75,32 @@ function Steps() {
   );
 }
 
+function Button({ backgroundColor, color, onClick, children }) {
+  return (
+    <button
+      style={{ backgroundColor: `${backgroundColor}`, color: `${color}` }}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+}
+
+function StepMessage({ step, children }) {
+  return (
+    <p className="message">
+      Step {step}: {children}
+    </p>
+  );
+}
+Button.propTypes = {
+  backgroundColor: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired,
+};
+StepMessage.propTypes = {
+  step: PropTypes.array.isRequired,
+  children: PropTypes.element.isRequired,
+};
 export default App;
