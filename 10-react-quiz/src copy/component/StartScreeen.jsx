@@ -1,8 +1,6 @@
 import PropTypes from "prop-types";
-import { useQuiz } from "../context/QuizContext";
 
-function StartScreeen() {
-  const { numQuestion, dispatch } = useQuiz();
+function StartScreeen({ numQuestion, dispatch }) {
   return (
     <div className="start">
       <h2>Welcome to The React Quiz!</h2>

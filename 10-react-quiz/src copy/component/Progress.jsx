@@ -1,14 +1,12 @@
 import PropTypes from "prop-types";
-import { useQuiz } from "../context/QuizContext";
-function Progress() {
-  const { index, numQuestion, points, maxScore, answer } = useQuiz();
+function Progress({ index, numQustion, points, maxScore, answer }) {
   return (
     <header className="progress">
-      <progress max={numQuestion} value={index + Number(answer !== null)} />
+      <progress max={numQustion} value={index + Number(answer !== null)} />
       <p>
         Question{" "}
         <strong>
-          {index + 1} / {numQuestion}
+          {index + 1} / {numQustion}
         </strong>
       </p>
       <p>

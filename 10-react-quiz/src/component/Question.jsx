@@ -1,18 +1,22 @@
+import { useQuiz } from "../context/QuizContext";
 import Option from "./Option";
 import PropTypes from "prop-types";
-function Question({ questions, dispatch, answer }) {
-  console.log(questions);
+
+function Question() {
+  const { questions, index } = useQuiz();
+  const currentQuestion = questions[index];
+
   return (
     <div>
-      <h4>{questions.question}</h4>
-      <Option question={questions} dispatch={dispatch} answer={answer} />
+      <h4>{currentQuestion.question}</h4>
+      <Option />
     </div>
   );
 }
+
 Question.propTypes = {
-  questions: PropTypes.object,
-  dispatch: PropTypes.func.isRequired,
-  answer: PropTypes.number,
+  questions: PropTypes.array,
+  index: PropTypes.number,
 };
 
 export default Question;

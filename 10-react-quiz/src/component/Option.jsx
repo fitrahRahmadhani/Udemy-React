@@ -1,16 +1,22 @@
 import PropTypes from "prop-types";
+import { useQuiz } from "../context/QuizContext";
 
-function Option({ question, dispatch, answer }) {
+function Option() {
+  const { questions, answer, dispatch, index } = useQuiz();
+  const currentQuestion = questions[index];
   const hasAnswer = answer !== null;
+
   return (
     <div className="options">
-      {question.options.map((option, index) => (
+      {currentQuestion.options.map((option, optionIndex) => (
         <button
-          key={index}
-          onClick={() => dispatch({ type: "newAnswer", payload: index })}
-          className={`btn btn-option ${index === answer ? "answer" : ""} ${
+          key={optionIndex}
+          onClick={() => dispatch({ type: "newAnswer", payload: optionIndex })}
+          className={`btn btn-option ${
+            optionIndex === answer ? "answer" : ""
+          } ${
             hasAnswer
-              ? index === question.correctOption
+              ? optionIndex === currentQuestion.correctOption
                 ? "correct"
                 : "wrong"
               : ""
@@ -25,9 +31,7 @@ function Option({ question, dispatch, answer }) {
 }
 
 Option.propTypes = {
-  question: PropTypes.object,
-  dispatch: PropTypes.func.isRequired,
-  answer: PropTypes.number,
+  index: PropTypes.number,
 };
 
 export default Option;

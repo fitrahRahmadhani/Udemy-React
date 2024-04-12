@@ -1,9 +1,7 @@
 import PropTypes from "prop-types";
-import { useQuiz } from "../context/QuizContext";
 
-function FinishScreen() {
-  const { points, maxScore, highScore, dispatch } = useQuiz();
-  const percentage = (points / maxScore) * 100;
+function FinishScreen({ points, maxPossiblePoints, highScore, dispatch }) {
+  const percentage = (points / maxPossiblePoints) * 100;
 
   let emoji;
   if (percentage === 100) emoji = "🎖️";
@@ -16,7 +14,7 @@ function FinishScreen() {
     <>
       <p className="result">
         <span>{emoji}</span> You scored <strong>{points}</strong> out of{" "}
-        {maxScore} ({Math.ceil(percentage)}%)
+        {maxPossiblePoints} ({Math.ceil(percentage)}%)
       </p>
       <p className="highscore">(Highscore: {highScore} point)</p>
       <button
@@ -31,7 +29,7 @@ function FinishScreen() {
 
 FinishScreen.propTypes = {
   points: PropTypes.number,
-  maxScore: PropTypes.number,
+  maxPossiblePoints: PropTypes.number,
   highScore: PropTypes.number,
   dispatch: PropTypes.func.isRequired,
 };

@@ -1,8 +1,6 @@
 import PropTypes from "prop-types";
-import { useQuiz } from "../context/QuizContext";
 
-function NextButton() {
-  const { dispatch, answer, index, numQuestion } = useQuiz();
+function NextButton({ dispatch, answer, index, numQuestion }) {
   if (answer === null) {
     return null;
   }
