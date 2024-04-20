@@ -22,7 +22,7 @@ const Product = lazy(() => import("./pages/Product"));
 const Homepage = lazy(() => import("./pages/Homepage"));
 const Pricing = lazy(() => import("./pages/Pricing"));
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
-const AppLayout = lazy(() => import("./pages/AppLayout"));
+const AppLayout = lazy(() => import("./pages/App.Layout"));
 const Login = lazy(() => import("./pages/Login"));
 
 function App() {
