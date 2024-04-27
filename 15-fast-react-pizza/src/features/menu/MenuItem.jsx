@@ -1,3 +1,6 @@
+import PropTypes from "prop-types";
+import { formatCurrency } from "../../utils/helpers";
+
 function MenuItem({ pizza }) {
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
 
@@ -5,8 +8,9 @@ function MenuItem({ pizza }) {
     <li>
       <img src={imageUrl} alt={name} />
       <div>
+        <p>{id}</p>
         <p>{name}</p>
-        <p>{ingredients.join(', ')}</p>
+        <p>{ingredients.join(", ")}</p>
         <div>
           {!soldOut ? <p>{formatCurrency(unitPrice)}</p> : <p>Sold out</p>}
         </div>
@@ -14,5 +18,9 @@ function MenuItem({ pizza }) {
     </li>
   );
 }
+
+MenuItem.propTypes = {
+  pizza: PropTypes.object,
+};
 
 export default MenuItem;
