@@ -5,7 +5,6 @@ import Button from "../../ui/Button";
 
 function DeleteItem({ pizzaId }) {
   const dispatch = useDispatch();
-  console.log(pizzaId);
   return (
     <Button type="small" onClick={() => dispatch(deleteItem(pizzaId))}>
       Delete
