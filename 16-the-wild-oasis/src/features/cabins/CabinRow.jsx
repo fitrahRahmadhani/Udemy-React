@@ -1,3 +1,5 @@
+import Proptypes from "prop-types";
+import { formatCurrency } from "../../utils/helpers";
 import styled from "styled-components";
 
 const TableRow = styled.div`
@@ -38,3 +40,27 @@ const Discount = styled.div`
   font-weight: 500;
   color: var(--color-green-700);
 `;
+
+function CabinRow({ cabin }) {
+  const { name, maxCapacity, regularPrice, discount, image } = cabin;
+  return (
+    <TableRow role="row">
+      <Img src={image} alt={name} />
+      <Cabin>{name}</Cabin>
+      <div>{maxCapacity} persons</div>
+      <Price>{formatCurrency(regularPrice)}</Price>
+      <Discount>{discount}%</Discount>
+      <button>Delete</button>
+    </TableRow>
+  );
+}
+CabinRow.propTypes = {
+  cabin: Proptypes.shape({
+    name: Proptypes.string.isRequired,
+    maxCapacity: Proptypes.number.isRequired,
+    regularPrice: Proptypes.number.isRequired,
+    discount: Proptypes.number.isRequired,
+    image: Proptypes.string.isRequired,
+  }),
+};
+export default CabinRow;
