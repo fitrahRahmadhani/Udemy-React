@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { format, isToday } from "date-fns";
 
@@ -82,5 +83,7 @@ function BookingRow({
     </Table.Row>
   );
 }
-
+BookingRow.propTypes = {
+  booking: PropTypes.object,
+};
 export default BookingRow;
