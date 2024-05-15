@@ -1,4 +1,4 @@
-import { useBooking } from "./useBooking";
+import { useBookings } from "./useBookings";
 import BookingRow from "./BookingRow";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
@@ -7,7 +7,7 @@ import Empty from "../../ui/Empty";
 import Pagination from "../../ui/Pagination";
 
 function BookingTable() {
-  const { isPending, bookings } = useBooking();
+  const { isPending, bookings } = useBookings();
   console.log(bookings);
   if (isPending) return <Spinner />;
   if (!bookings) return <Empty resource="bookings" />;
