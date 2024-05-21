@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const StyledCheckbox = styled.div`
   display: flex;
@@ -10,6 +11,11 @@ const StyledCheckbox = styled.div`
     outline-offset: 2px;
     transform-origin: 0;
     accent-color: var(--color-brand-600);
+  }
+
+  & input[type="checkbox"]:checked {
+    background-color: var(--color-brand-600);
+    border-color: var(--color-brand-600);
   }
 
   & input[type="checkbox"]:disabled {
@@ -39,5 +45,13 @@ function Checkbox({ checked, onChange, disabled = false, id, children }) {
     </StyledCheckbox>
   );
 }
+
+Checkbox.propTypes = {
+  checked: PropTypes.bool,
+  onChange: PropTypes.func,
+  disabled: PropTypes.bool,
+  id: PropTypes.string,
+  children: PropTypes.node,
+};
 
 export default Checkbox;
