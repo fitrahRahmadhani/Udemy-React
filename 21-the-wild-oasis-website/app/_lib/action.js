@@ -1,8 +1,14 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { auth, signIn, signOut } from "./auth";
-import { updateGuest } from "./data-service";
+import {
+  deleteBooking,
+  getBookings,
+  updateBooking,
+  updateGuest,
+} from "./data-service";
 
 export async function updateProfileAction(formData) {
   const session = await auth();
@@ -23,4 +29,44 @@ export async function signInAction() {
 }
 export async function signOutAction() {
   await signOut({ redirectTo: "/" });
+}
+
+export async function deleteReservationAction(bookingId) {
+  const session = await auth();
+  if (!session) throw new Error("Not authenticated");
+  const guestBookings = await getBookings(session.user.guestId);
+  const guestBookingsIds = guestBookings.map((booking) => booking.id);
+  if (!guestBookingsIds.includes(bookingId)) {
+    throw new Error("You are not allowed to delete this reservation");
+  }
+
+  await deleteBooking(bookingId);
+  revalidatePath("/account/reservations");
+}
+
+export async function updateBookingAction(formData) {
+  const bookingId = formData.get("bookingId");
+
+  // Authentication
+  const session = await auth();
+  if (!session) throw new Error("Not authenticated");
+
+  // Authorization
+  const guestBookings = await getBookings(session.user.guestId);
+  const guestBookingsIds = guestBookings.map((booking) => booking.id);
+
+  if (!guestBookingsIds.includes(Number(bookingId))) {
+    throw new Error("You are not allowed to update this reservation");
+  }
+
+  const updateData = {
+    numGuests: formData.get("numGuests"),
+    observations: formData.get("observations").slice(0, 1000),
+  };
+
+  await updateBooking(bookingId, updateData);
+
+  revalidatePath(`/account/reservations/edit/${bookingId}`);
+  revalidatePath("/account/reservations");
+  redirect("/account/reservations");
 }
